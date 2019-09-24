@@ -1,0 +1,22 @@
+{
+  "slug": "ChickenPlugin",
+  "name": "ChickenPlugin",
+  "version": "1.0.0",
+  "license": "proprietary",
+  "brand": "ChickenPlugin",
+  "author": "",
+  "authorEmail": "",
+  "authorUrl": "",
+  "pluginUrl": "",
+  "manualUrl": "",
+  "sourceUrl": "",
+  "donateUrl": "",
+  "modules": [
+    {
+      "slug": "ChickenModule",
+      "name": "ChickenModule",
+      "description": "",
+      "tags": []
+    }
+  ]
+}
