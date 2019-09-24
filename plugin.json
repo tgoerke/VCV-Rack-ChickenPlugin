@@ -1,0 +1,22 @@
+{
+  "slug": "VultPlugin",
+  "name": "VultPlugin",
+  "version": "1.0.0",
+  "license": "proprietary",
+  "brand": "VultPlugin",
+  "author": "",
+  "authorEmail": "",
+  "authorUrl": "",
+  "pluginUrl": "",
+  "manualUrl": "",
+  "sourceUrl": "",
+  "donateUrl": "",
+  "modules": [
+    {
+      "slug": "VultModule",
+      "name": "VultModule",
+      "description": "",
+      "tags": []
+    }
+  ]
+}
