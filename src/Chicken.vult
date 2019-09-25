@@ -1,0 +1,15 @@
+fun edge(clk) {
+  mem pre;
+  val ret = clk == true && pre == false;
+  pre = clk;
+  return ret;
+}
+
+fun process(clock:real, mod1:real, mod2:real){
+  mem out;
+  
+  if(edge(clock >0.2)){
+    out = random();
+  }
+  return out;
+}
