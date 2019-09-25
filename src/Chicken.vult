@@ -5,11 +5,44 @@ fun edge(clk) {
   return ret;
 }
 
+fun slew(x, rate) {
+  mem state;
+  val diff = x - state;
+  val y = if diff > rate then rate else if diff < -rate then -rate else diff;
+  state = state + y;
+  return state;
+}
+
+
 fun process(clock:real, mod1:real, mod2:real){
-  mem out;
-  
+  mem sample1;
+  mem sample2;
+  mem knob1:real;  // defines slew rate
+  mem knob2:real;  // defines range of amplitude
+  mem knob3:real;  // defines offset
+  mem knob4:real;
+
   if(edge(clock >0.2)){
-    out = random();
+    sample1 = 2.0 * random() - 1.0;
+    sample2 = 2.0 * random() - 1.0;
   }
-  return out;
+
+  val offset = (knob3 - 0.5) * 2.0;
+  val out1 = knob2 * slew(sample1, 0.001 * knob1) + offset;
+  val out2 = knob2 * slew(sample2, 0.001 * knob1) + offset;
+
+  return out1, out2;
+}
+
+and setKnob1(value) {
+  knob1 = value;
+}
+and setKnob2(value) {
+  knob2 = value;
+}
+and setKnob3(value) {
+  knob3 = value;
+}
+and setKnob4(value) {
+  knob4 = value;
 }

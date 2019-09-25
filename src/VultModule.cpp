@@ -17,7 +17,8 @@ struct VultModule : Module {
 		NUM_INPUTS
 	};
 	enum OutputIds {
-		OUT_OUTPUT,
+		OUT1_OUTPUT,
+		OUT2_OUTPUT,
 		NUM_OUTPUTS
 	};
 	enum LightIds {
@@ -38,13 +39,19 @@ struct VultModule : Module {
 	}
 
 	void process(const ProcessArgs &args) override {
+
+		Chicken_setKnob1(processor, params[KNOB1_PARAM].value);
+		Chicken_setKnob2(processor, params[KNOB2_PARAM].value);
+		Chicken_setKnob3(processor, params[KNOB3_PARAM].value);
+		Chicken_setKnob4(processor, params[KNOB4_PARAM].value);
+
 		float clk = inputs[CLOCK_INPUT].value / 10.0f;
 		float mod1 = inputs[MOD1_INPUT].value / 10.0f;
 		float mod2 = inputs[MOD2_INPUT].value / 10.0f;
 
-		float out = Chicken_process(processor, clk, mod1, mod2);
-		outputs[OUT_OUTPUT].value = out * 10.0f;
-		//outputs[OUTPUT].setVoltage(5.f * sine);
+		Chicken_process(processor, clk, mod1, mod2);
+		outputs[OUT1_OUTPUT].value = Chicken_process_ret_0(processor) * 10.0f;
+		outputs[OUT2_OUTPUT].value = Chicken_process_ret_1(processor) * 10.0f;
 	}
 };
 
@@ -64,18 +71,19 @@ struct VultModuleWidget : ModuleWidget {
     addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
     addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-    addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.24, 32.517)), module, VultModule::KNOB1_PARAM));
-    addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.11, 45.197)), module, VultModule::KNOB2_PARAM));
-    addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.11, 57.051)), module, VultModule::KNOB3_PARAM));
-    addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.11, 68.904)), module, VultModule::KNOB4_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(22.0, 40.0)), module, VultModule::KNOB1_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(22.0, 60.0)), module, VultModule::KNOB2_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(22.0, 80.0)), module, VultModule::KNOB3_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(22.0, 100.0)), module, VultModule::KNOB4_PARAM));
 
-    addInput(createInputCentered<PJ301MPort>(mm2px(Vec(15.24, 81.993)), module, VultModule::CLOCK_INPUT));
-    addInput(createInputCentered<PJ301MPort>(mm2px(Vec(15.395, 93.542)), module, VultModule::MOD1_INPUT));
-    addInput(createInputCentered<PJ301MPort>(mm2px(Vec(15.395, 105.395)), module, VultModule::MOD2_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8.0, 40.0)), module, VultModule::CLOCK_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8.0, 60.0)), module, VultModule::MOD1_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8.0, 80.0)), module, VultModule::MOD2_INPUT));
 
-    addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(15.24, 118.308)), module, VultModule::OUT_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(8.0, 100.0)), module, VultModule::OUT1_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(8.273, 115.778)), module, VultModule::OUT2_OUTPUT));
 
-    addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(15.24, 18.472)), module, VultModule::BLINK_LIGHT));
+		addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(15.24, 18.472)), module, VultModule::BLINK_LIGHT));
 
 	}
 };
