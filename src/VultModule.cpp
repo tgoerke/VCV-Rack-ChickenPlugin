@@ -44,6 +44,9 @@ struct VultModule : Module {
 		Chicken_setKnob2(processor, params[KNOB2_PARAM].value);
 		Chicken_setKnob3(processor, params[KNOB3_PARAM].value);
 		Chicken_setKnob4(processor, params[KNOB4_PARAM].value);
+		Chicken_isClockConnected(processor, inputs[CLOCK_INPUT].active);
+
+		lights[BLINK_LIGHT].setBrightness(inputs[CLOCK_INPUT].active ? 1.f: 0.f);
 
 		float clk = inputs[CLOCK_INPUT].value / 10.0f;
 		float mod1 = inputs[MOD1_INPUT].value / 10.0f;

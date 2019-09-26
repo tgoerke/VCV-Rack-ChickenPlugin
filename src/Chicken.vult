@@ -1,3 +1,23 @@
+fun biquad(x0, b0, b1, b2 ,a1 ,a2) : real {
+    mem w1, w2;
+    val w0 = x0 - a1*w1 - a2*w2;
+    val y0 = b0*w0 + b1*w1 + b2*w2;
+    w2, w1 = w1, w0;
+    return y0;
+}
+
+fun lowpass(x,w0,q) {
+    val cos_w = cos(w0);
+    val alpha = sin(w0)/(2.0*q);
+    val den =  1.0 + alpha;
+    val a1 =  (-2.0*cos_w)/den;
+    val a2 =  (1.0 - alpha)/den;
+    val b0 = ((1.0 - cos_w)/(2.0*den));
+    val b1 = (1.0 - cos_w)/den;
+    val b2 = ((1.0 - cos_w)/(2.0*den));
+    return biquad(x,b0,b1,b2,a1,a2);
+}
+
 fun edge(clk) {
   mem pre;
   val ret = clk == true && pre == false;
@@ -25,13 +45,18 @@ fun process(clock:real, mod1:real, mod2:real){
   mem knob2:real;  // defines range of amplitude
   mem knob3:real;  // defines offset
   mem knob4:real;
+  mem mode:bool;   // true if clock input is connected
 
-  val trigger = edge(clock >0.2);
-
-  val out1 = channel(trigger, knob1, knob2, knob3);
-  val out2 = channel(trigger, knob1, knob2, knob3);
-
-  return out1, out2;
+  if (mode == true) { // output S&H values
+    val trigger = edge(clock > 0.2);
+    val out1 = channel(trigger, knob1, knob2, knob3);
+    val out2 = channel(trigger, knob1, knob2, knob3);
+    return out1, out2;
+  } else {            // output lowpass filtered signal
+    val out1 = lowpass(mod1, knob1, knob2);
+    val out2 = lowpass(mod2, knob3, knob4);
+    return out1, out2;
+  }
 }
 
 and setKnob1(value) {
@@ -45,4 +70,7 @@ and setKnob3(value) {
 }
 and setKnob4(value) {
   knob4 = value;
+}
+and isClockConnected(value) {
+  mode = value;
 }

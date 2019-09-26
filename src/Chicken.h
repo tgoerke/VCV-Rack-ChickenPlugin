@@ -13,158 +13,208 @@ typedef struct _tuple___real_real__ {
 } _tuple___real_real__;
 
 typedef struct Chicken__ctx_type_0 {
-   uint8_t pre;
+   float w2;
+   float w1;
 } Chicken__ctx_type_0;
 
-typedef Chicken__ctx_type_0 Chicken_edge_type;
+typedef Chicken__ctx_type_0 Chicken_biquad_type;
 
-static_inline void Chicken__ctx_type_0_init(Chicken__ctx_type_0 &_output_){
-   Chicken__ctx_type_0 _ctx;
+void Chicken__ctx_type_0_init(Chicken__ctx_type_0 &_output_);
+
+static_inline void Chicken_biquad_init(Chicken__ctx_type_0 &_output_){
+   Chicken__ctx_type_0_init(_output_);
+   return ;
+}
+
+float Chicken_biquad(Chicken__ctx_type_0 &_ctx, float x0, float b0, float b1, float b2, float a1, float a2);
+
+typedef struct Chicken__ctx_type_1 {
+   Chicken__ctx_type_0 _inst2;
+} Chicken__ctx_type_1;
+
+typedef Chicken__ctx_type_1 Chicken_lowpass_type;
+
+static_inline void Chicken__ctx_type_1_init(Chicken__ctx_type_1 &_output_){
+   Chicken__ctx_type_1 _ctx;
+   Chicken__ctx_type_0_init(_ctx._inst2);
+   _output_ = _ctx;
+   return ;
+}
+
+static_inline void Chicken_lowpass_init(Chicken__ctx_type_1 &_output_){
+   Chicken__ctx_type_1_init(_output_);
+   return ;
+}
+
+float Chicken_lowpass(Chicken__ctx_type_1 &_ctx, float x, float w0, float q);
+
+typedef struct Chicken__ctx_type_2 {
+   uint8_t pre;
+} Chicken__ctx_type_2;
+
+typedef Chicken__ctx_type_2 Chicken_edge_type;
+
+static_inline void Chicken__ctx_type_2_init(Chicken__ctx_type_2 &_output_){
+   Chicken__ctx_type_2 _ctx;
    _ctx.pre = false;
    _output_ = _ctx;
    return ;
 }
 
-static_inline void Chicken_edge_init(Chicken__ctx_type_0 &_output_){
-   Chicken__ctx_type_0_init(_output_);
+static_inline void Chicken_edge_init(Chicken__ctx_type_2 &_output_){
+   Chicken__ctx_type_2_init(_output_);
    return ;
 }
 
-static_inline uint8_t Chicken_edge(Chicken__ctx_type_0 &_ctx, uint8_t clk){
+static_inline uint8_t Chicken_edge(Chicken__ctx_type_2 &_ctx, uint8_t clk){
    uint8_t ret;
    ret = ((clk == true) && (_ctx.pre == false));
    _ctx.pre = clk;
    return ret;
 }
 
-typedef struct Chicken__ctx_type_1 {
+typedef struct Chicken__ctx_type_3 {
    float state;
-} Chicken__ctx_type_1;
+} Chicken__ctx_type_3;
 
-typedef Chicken__ctx_type_1 Chicken_slew_type;
+typedef Chicken__ctx_type_3 Chicken_slew_type;
 
-static_inline void Chicken__ctx_type_1_init(Chicken__ctx_type_1 &_output_){
-   Chicken__ctx_type_1 _ctx;
+static_inline void Chicken__ctx_type_3_init(Chicken__ctx_type_3 &_output_){
+   Chicken__ctx_type_3 _ctx;
    _ctx.state = 0.0f;
    _output_ = _ctx;
    return ;
 }
 
-static_inline void Chicken_slew_init(Chicken__ctx_type_1 &_output_){
-   Chicken__ctx_type_1_init(_output_);
+static_inline void Chicken_slew_init(Chicken__ctx_type_3 &_output_){
+   Chicken__ctx_type_3_init(_output_);
    return ;
 }
 
-float Chicken_slew(Chicken__ctx_type_1 &_ctx, float x, float rate);
+float Chicken_slew(Chicken__ctx_type_3 &_ctx, float x, float rate);
 
-typedef struct Chicken__ctx_type_2 {
+typedef struct Chicken__ctx_type_4 {
    float sample;
-   Chicken__ctx_type_1 _inst4;
-} Chicken__ctx_type_2;
+   Chicken__ctx_type_3 _inst7;
+} Chicken__ctx_type_4;
 
-typedef Chicken__ctx_type_2 Chicken_channel_type;
+typedef Chicken__ctx_type_4 Chicken_channel_type;
 
-void Chicken__ctx_type_2_init(Chicken__ctx_type_2 &_output_);
+void Chicken__ctx_type_4_init(Chicken__ctx_type_4 &_output_);
 
-static_inline void Chicken_channel_init(Chicken__ctx_type_2 &_output_){
-   Chicken__ctx_type_2_init(_output_);
+static_inline void Chicken_channel_init(Chicken__ctx_type_4 &_output_){
+   Chicken__ctx_type_4_init(_output_);
    return ;
 }
 
-static_inline float Chicken_channel(Chicken__ctx_type_2 &_ctx, uint8_t trigger, float rate, float range, float offset){
+static_inline float Chicken_channel(Chicken__ctx_type_4 &_ctx, uint8_t trigger, float rate, float range, float offset){
    if(trigger){
       _ctx.sample = (-1.f + (2.f * float_random()));
    }
-   return (offset + (range * Chicken_slew(_ctx._inst4,_ctx.sample,(0.001f * rate))));
+   return (offset + (range * Chicken_slew(_ctx._inst7,_ctx.sample,(0.001f * rate))));
 }
 
-typedef struct Chicken__ctx_type_3 {
+typedef struct Chicken__ctx_type_5 {
    float process_ret_1;
    float process_ret_0;
+   uint8_t mode;
    float knob4;
    float knob3;
    float knob2;
    float knob1;
-   Chicken__ctx_type_2 _inst8;
-   Chicken__ctx_type_2 _inst7;
-   Chicken__ctx_type_0 _inst6;
-} Chicken__ctx_type_3;
+   Chicken__ctx_type_1 _inst15;
+   Chicken__ctx_type_1 _inst14;
+   Chicken__ctx_type_4 _inst12;
+   Chicken__ctx_type_4 _inst11;
+   Chicken__ctx_type_2 _inst10;
+} Chicken__ctx_type_5;
 
-typedef Chicken__ctx_type_3 Chicken_process_type;
+typedef Chicken__ctx_type_5 Chicken_process_type;
 
-void Chicken__ctx_type_3_init(Chicken__ctx_type_3 &_output_);
+void Chicken__ctx_type_5_init(Chicken__ctx_type_5 &_output_);
 
-static_inline void Chicken_process_init(Chicken__ctx_type_3 &_output_){
-   Chicken__ctx_type_3_init(_output_);
+static_inline void Chicken_process_init(Chicken__ctx_type_5 &_output_){
+   Chicken__ctx_type_5_init(_output_);
    return ;
 }
 
-void Chicken_process(Chicken__ctx_type_3 &_ctx, float clock, float mod1, float mod2);
+void Chicken_process(Chicken__ctx_type_5 &_ctx, float clock, float mod1, float mod2);
 
-typedef Chicken__ctx_type_3 Chicken_process_ret_0_type;
+typedef Chicken__ctx_type_5 Chicken_process_ret_0_type;
 
-static_inline void Chicken_process_ret_0_init(Chicken__ctx_type_3 &_output_){
-   Chicken__ctx_type_3_init(_output_);
+static_inline void Chicken_process_ret_0_init(Chicken__ctx_type_5 &_output_){
+   Chicken__ctx_type_5_init(_output_);
    return ;
 }
 
-static_inline float Chicken_process_ret_0(Chicken__ctx_type_3 &_ctx){
+static_inline float Chicken_process_ret_0(Chicken__ctx_type_5 &_ctx){
    return _ctx.process_ret_0;
 };
 
-typedef Chicken__ctx_type_3 Chicken_process_ret_1_type;
+typedef Chicken__ctx_type_5 Chicken_process_ret_1_type;
 
-static_inline void Chicken_process_ret_1_init(Chicken__ctx_type_3 &_output_){
-   Chicken__ctx_type_3_init(_output_);
+static_inline void Chicken_process_ret_1_init(Chicken__ctx_type_5 &_output_){
+   Chicken__ctx_type_5_init(_output_);
    return ;
 }
 
-static_inline float Chicken_process_ret_1(Chicken__ctx_type_3 &_ctx){
+static_inline float Chicken_process_ret_1(Chicken__ctx_type_5 &_ctx){
    return _ctx.process_ret_1;
 };
 
-typedef Chicken__ctx_type_3 Chicken_setKnob1_type;
+typedef Chicken__ctx_type_5 Chicken_setKnob1_type;
 
-static_inline void Chicken_setKnob1_init(Chicken__ctx_type_3 &_output_){
-   Chicken__ctx_type_3_init(_output_);
+static_inline void Chicken_setKnob1_init(Chicken__ctx_type_5 &_output_){
+   Chicken__ctx_type_5_init(_output_);
    return ;
 }
 
-static_inline void Chicken_setKnob1(Chicken__ctx_type_3 &_ctx, float value){
+static_inline void Chicken_setKnob1(Chicken__ctx_type_5 &_ctx, float value){
    _ctx.knob1 = value;
 };
 
-typedef Chicken__ctx_type_3 Chicken_setKnob2_type;
+typedef Chicken__ctx_type_5 Chicken_setKnob2_type;
 
-static_inline void Chicken_setKnob2_init(Chicken__ctx_type_3 &_output_){
-   Chicken__ctx_type_3_init(_output_);
+static_inline void Chicken_setKnob2_init(Chicken__ctx_type_5 &_output_){
+   Chicken__ctx_type_5_init(_output_);
    return ;
 }
 
-static_inline void Chicken_setKnob2(Chicken__ctx_type_3 &_ctx, float value){
+static_inline void Chicken_setKnob2(Chicken__ctx_type_5 &_ctx, float value){
    _ctx.knob2 = value;
 };
 
-typedef Chicken__ctx_type_3 Chicken_setKnob3_type;
+typedef Chicken__ctx_type_5 Chicken_setKnob3_type;
 
-static_inline void Chicken_setKnob3_init(Chicken__ctx_type_3 &_output_){
-   Chicken__ctx_type_3_init(_output_);
+static_inline void Chicken_setKnob3_init(Chicken__ctx_type_5 &_output_){
+   Chicken__ctx_type_5_init(_output_);
    return ;
 }
 
-static_inline void Chicken_setKnob3(Chicken__ctx_type_3 &_ctx, float value){
+static_inline void Chicken_setKnob3(Chicken__ctx_type_5 &_ctx, float value){
    _ctx.knob3 = value;
 };
 
-typedef Chicken__ctx_type_3 Chicken_setKnob4_type;
+typedef Chicken__ctx_type_5 Chicken_setKnob4_type;
 
-static_inline void Chicken_setKnob4_init(Chicken__ctx_type_3 &_output_){
-   Chicken__ctx_type_3_init(_output_);
+static_inline void Chicken_setKnob4_init(Chicken__ctx_type_5 &_output_){
+   Chicken__ctx_type_5_init(_output_);
    return ;
 }
 
-static_inline void Chicken_setKnob4(Chicken__ctx_type_3 &_ctx, float value){
+static_inline void Chicken_setKnob4(Chicken__ctx_type_5 &_ctx, float value){
    _ctx.knob4 = value;
+};
+
+typedef Chicken__ctx_type_5 Chicken_isClockConnected_type;
+
+static_inline void Chicken_isClockConnected_init(Chicken__ctx_type_5 &_output_){
+   Chicken__ctx_type_5_init(_output_);
+   return ;
+}
+
+static_inline void Chicken_isClockConnected(Chicken__ctx_type_5 &_ctx, uint8_t value){
+   _ctx.mode = value;
 };
 
 
