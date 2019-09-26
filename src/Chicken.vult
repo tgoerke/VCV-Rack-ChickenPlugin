@@ -13,23 +13,23 @@ fun slew(x, rate) {
   return state;
 }
 
+fun channel(trigger, rate, range, offset) {
+  mem sample;
+  if(trigger)
+    sample =  2.0 * random() - 1.0;
+  return range * slew(sample, 0.001 * rate) + offset;
+}
 
 fun process(clock:real, mod1:real, mod2:real){
-  mem sample1;
-  mem sample2;
   mem knob1:real;  // defines slew rate
   mem knob2:real;  // defines range of amplitude
   mem knob3:real;  // defines offset
   mem knob4:real;
 
-  if(edge(clock >0.2)){
-    sample1 = 2.0 * random() - 1.0;
-    sample2 = 2.0 * random() - 1.0;
-  }
+  val trigger = edge(clock >0.2);
 
-  val offset = (knob3 - 0.5) * 2.0;
-  val out1 = knob2 * slew(sample1, 0.001 * knob1) + offset;
-  val out2 = knob2 * slew(sample2, 0.001 * knob1) + offset;
+  val out1 = channel(trigger, knob1, knob2, knob3);
+  val out2 = channel(trigger, knob1, knob2, knob3);
 
   return out1, out2;
 }
