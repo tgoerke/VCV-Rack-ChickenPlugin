@@ -1,9 +1,9 @@
 {
-  "slug": "VultPlugin",
-  "name": "VultPlugin",
+  "slug": "ChickenPlugin",
+  "name": "ChickenPlugin",
   "version": "1.0.0",
   "license": "proprietary",
-  "brand": "VultPlugin",
+  "brand": "ChickenPlugin",
   "author": "",
   "authorEmail": "",
   "authorUrl": "",
@@ -13,8 +13,8 @@
   "donateUrl": "",
   "modules": [
     {
-      "slug": "VultModule",
-      "name": "VultModule",
+      "slug": "ChickenModule",
+      "name": "ChickenModule",
       "description": "",
       "tags": []
     }

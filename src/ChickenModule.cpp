@@ -2,7 +2,7 @@
 #include "Chicken.h"
 
 
-struct VultModule : Module {
+struct ChickenModule : Module {
 	enum ParamIds {
 		KNOB1_PARAM,
 		KNOB2_PARAM,
@@ -28,7 +28,7 @@ struct VultModule : Module {
 
 	Chicken_process_type processor;
 
-	VultModule() {
+	ChickenModule() {
 		config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
 		configParam(KNOB1_PARAM, 0.f, 1.f, 0.f, "");
 		configParam(KNOB2_PARAM, 0.f, 1.f, 0.f, "");
@@ -59,10 +59,10 @@ struct VultModule : Module {
 };
 
 
-struct VultModuleWidget : ModuleWidget {
-	VultModuleWidget(VultModule *module) {
+struct ChickenModuleWidget : ModuleWidget {
+	ChickenModuleWidget(ChickenModule *module) {
 		setModule(module);
-		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/VultModule.svg")));
+		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/ChickenModule.svg")));
 
 		addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, 0)));
@@ -74,21 +74,21 @@ struct VultModuleWidget : ModuleWidget {
     addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
     addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(22.0, 40.0)), module, VultModule::KNOB1_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(22.0, 60.0)), module, VultModule::KNOB2_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(22.0, 80.0)), module, VultModule::KNOB3_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(22.0, 100.0)), module, VultModule::KNOB4_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(22.0, 40.0)), module, ChickenModule::KNOB1_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(22.0, 60.0)), module, ChickenModule::KNOB2_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(22.0, 80.0)), module, ChickenModule::KNOB3_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(22.0, 100.0)), module, ChickenModule::KNOB4_PARAM));
 
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8.0, 40.0)), module, VultModule::CLOCK_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8.0, 60.0)), module, VultModule::MOD1_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8.0, 80.0)), module, VultModule::MOD2_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8.0, 40.0)), module, ChickenModule::CLOCK_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8.0, 60.0)), module, ChickenModule::MOD1_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8.0, 80.0)), module, ChickenModule::MOD2_INPUT));
 
-		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(8.0, 100.0)), module, VultModule::OUT1_OUTPUT));
-		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(8.273, 115.778)), module, VultModule::OUT2_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(8.0, 100.0)), module, ChickenModule::OUT1_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(8.273, 115.778)), module, ChickenModule::OUT2_OUTPUT));
 
-		addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(15.24, 18.472)), module, VultModule::BLINK_LIGHT));
+		addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(15.24, 18.472)), module, ChickenModule::BLINK_LIGHT));
 
 	}
 };
 
-Model *modelVultModule = createModel<VultModule, VultModuleWidget>("VultModule");
+Model *modelChickenModule = createModel<ChickenModule, ChickenModuleWidget>("ChickenModule");
