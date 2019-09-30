@@ -30,10 +30,10 @@ struct ChickenModule : Module {
 
 	ChickenModule() {
 		config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
-		configParam(KNOB1_PARAM, 0.f, 1.f, 0.f, "");
-		configParam(KNOB2_PARAM, 0.f, 1.f, 0.f, "");
-		configParam(KNOB3_PARAM, 0.f, 1.f, 0.f, "");
-		configParam(KNOB4_PARAM, 0.f, 1.f, 0.f, "");
+		configParam(KNOB1_PARAM, 0.5e-3, 1.f, 0.5f, "");
+		configParam(KNOB2_PARAM, 0.5e-3, 1.f, 0.5f, "");
+		configParam(KNOB3_PARAM, 0.5e-3, 1.f, 0.5f, "");
+		configParam(KNOB4_PARAM, 0.5e-3, 1.f, 0.5f, "");
 
 		Chicken_process_init(processor);
 	}

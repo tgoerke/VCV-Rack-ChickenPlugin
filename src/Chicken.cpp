@@ -106,9 +106,9 @@ void Chicken_process(Chicken__ctx_type_5 &_ctx, float clock, float mod1, float m
    else
    {
       float out1;
-      out1 = Chicken_lowpass(_ctx._inst14,mod1,_ctx.knob1,_ctx.knob2);
+      out1 = Chicken_lowpass(_ctx._inst14,mod1,(2.f * _ctx.knob1),(4.f * _ctx.knob2));
       float out2;
-      out2 = Chicken_lowpass(_ctx._inst15,mod2,_ctx.knob3,_ctx.knob4);
+      out2 = Chicken_lowpass(_ctx._inst15,mod2,(2.f * _ctx.knob3),(4.f * _ctx.knob4));
       _ctx.process_ret_0 = out1;
       _ctx.process_ret_1 = out2;
       return ;
